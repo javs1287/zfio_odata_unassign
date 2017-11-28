@@ -9,7 +9,7 @@ The OData Unassign program was created by the SAP S/4HANA RIG team hoping to sol
 
 You can find an easy to follow user-guide at: 
 
-As this is not an official SAP delivered program and it is based on our project experiences, if yoy rely upon this software or program, you do so at your own risk, and you assume the responsibility for the results.
+As this is not an official SAP delivered program and it is based on our project experiences, if you rely upon this software or program, you do so at your own risk, and you assume the responsibility for the results.
 
 So please make sure you perform appropiate tests before moving to a production environment.
 
