@@ -11,7 +11,7 @@ You can find an easy to follow user-guide at:
 
 As this is not an official SAP delivered program and it is based on our project experiences, if you rely upon this software or program, you do so at your own risk, and you assume the responsibility for the results. So please make sure you perform appropiate tests before moving to a production environment.
 
-This program has been tested in SAP S/4HANA 1709, 1610 and 1511.
+This program has been tested in SAP S/4HANA 1909, 1809, 1709, 1610 and 1511.
 
 Enjoy!
 
