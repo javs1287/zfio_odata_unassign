@@ -3,6 +3,8 @@
 *&---------------------------------------------------------------------*
 *&
 *& I834429 - 11272017
+*& I834429 - 08272019
+*&  Removed download to excel and switched to ALV grid
 *&---------------------------------------------------------------------*
 REPORT zfio_clntcpy_odata_unasgn_new.
 
@@ -44,15 +46,15 @@ SELECTION-SCREEN END OF BLOCK sel.
 SELECTION-SCREEN BEGIN OF BLOCK b0 WITH FRAME TITLE  TEXT-001.
 
 TABLES /iwfnd/i_med_srh.
-SELECT-OPTIONS s_serv FOR /iwfnd/i_med_srh-srv_identifier NO INTERVALS MODIF ID P0.
+SELECT-OPTIONS s_serv FOR /iwfnd/i_med_srh-srv_identifier NO INTERVALS MODIF ID p0.
 
-PARAMETERS: p_alias LIKE /iwfnd/c_dfsyal-system_alias MATCHCODE OBJECT /iwfnd/sh_sap_sys_alias MODIF ID P0.
+PARAMETERS: p_alias LIKE /iwfnd/c_dfsyal-system_alias MATCHCODE OBJECT /iwfnd/sh_sap_sys_alias MODIF ID p0.
 
 SELECTION-SCREEN END OF BLOCK b0.
 
 SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE  TEXT-002.
 
-PARAMETERS: s_alias LIKE /iwfnd/c_dfsyal-system_alias MATCHCODE OBJECT /iwfnd/sh_sap_sys_alias MODIF ID P1,
+PARAMETERS: s_alias LIKE /iwfnd/c_dfsyal-system_alias MATCHCODE OBJECT /iwfnd/sh_sap_sys_alias MODIF ID p1,
             p_treq1 TYPE e071-trkorr MATCHCODE OBJECT irm_transport MODIF ID p1,
             c_chk   AS CHECKBOX DEFAULT ' ' MODIF ID p1.
 
@@ -60,85 +62,86 @@ SELECTION-SCREEN END OF BLOCK b1.
 
 SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME TITLE  TEXT-003.
 
-PARAMETERS: s_alias1 LIKE /iwfnd/c_dfsyal-system_alias MATCHCODE OBJECT /iwfnd/sh_sap_sys_alias MODIF ID P2,
-            s_alias2 LIKE /iwfnd/c_dfsyal-system_alias MATCHCODE OBJECT /iwfnd/sh_sap_sys_alias MODIF ID P2,
-            p_treq2  TYPE e071-trkorr MATCHCODE OBJECT irm_transport MODIF ID P2,
-            c_rep    AS CHECKBOX DEFAULT ' ' MODIF ID P2.
+PARAMETERS: s_alias1 LIKE /iwfnd/c_dfsyal-system_alias MATCHCODE OBJECT /iwfnd/sh_sap_sys_alias MODIF ID p2,
+            s_alias2 LIKE /iwfnd/c_dfsyal-system_alias MATCHCODE OBJECT /iwfnd/sh_sap_sys_alias MODIF ID p2,
+            p_treq2  TYPE e071-trkorr MATCHCODE OBJECT irm_transport MODIF ID p2,
+            c_rep    AS CHECKBOX DEFAULT ' ' MODIF ID p2.
 
 SELECTION-SCREEN END OF BLOCK b2.
 
 SELECTION-SCREEN BEGIN OF BLOCK b3 WITH FRAME TITLE  TEXT-004.
 
-PARAMETERS: c_srvlst AS CHECKBOX DEFAULT ' ' MODIF ID P3.
+PARAMETERS: c_srvlst AS CHECKBOX DEFAULT ' ' MODIF ID p3.
 
 SELECTION-SCREEN END OF BLOCK b3.
 
 AT SELECTION-SCREEN OUTPUT.
   LOOP AT SCREEN.
-      IF RB_B0 EQ 'X' AND screen-group1 = 'P1'.
-        screen-active = '0'.
-        screen-input = '0'.
-        MODIFY SCREEN.
-      ENDIF.
-      IF RB_B0 EQ 'X' AND screen-group1 = 'P2'.
-        screen-active = '0'.
-        screen-input = '0'.
-        MODIFY SCREEN.
-      ENDIF.
-      IF RB_B0 EQ 'X' AND screen-group1 = 'P3'.
-        screen-active = '0'.
-        screen-input = '0'.
-        MODIFY SCREEN.
-      ENDIF.
-      IF RB_B1 EQ 'X' AND screen-group1 = 'P0'.
-        screen-active = '0'.
-        screen-input = '0'.
-        MODIFY SCREEN.
-      ENDIF.
-      IF RB_B1 EQ 'X' AND screen-group1 = 'P2'.
-        screen-active = '0'.
-        screen-input = '0'.
-        MODIFY SCREEN.
-      ENDIF.
-      IF RB_B1 EQ 'X' AND screen-group1 = 'P3'.
-        screen-active = '0'.
-        screen-input = '0'.
-        MODIFY SCREEN.
-      ENDIF.
-      IF RB_B2 EQ 'X' AND screen-group1 = 'P0'.
-        screen-active = '0'.
-        screen-input = '0'.
-        MODIFY SCREEN.
-      ENDIF.
-      IF RB_B2 EQ 'X' AND screen-group1 = 'P1'.
-        screen-active = '0'.
-        screen-input = '0'.
-        MODIFY SCREEN.
-      ENDIF.
-      IF RB_B2 EQ 'X' AND screen-group1 = 'P3'.
-        screen-active = '0'.
-        screen-input = '0'.
-        MODIFY SCREEN.
-      ENDIF.
-      IF RB_B3 EQ 'X' AND screen-group1 = 'P0'.
-        screen-active = '0'.
-        screen-input = '0'.
-        MODIFY SCREEN.
-      ENDIF.
-      IF RB_B3 EQ 'X' AND screen-group1 = 'P1'.
-        screen-active = '0'.
-        screen-input = '0'.
-        MODIFY SCREEN.
-      ENDIF.
-      IF RB_B3 EQ 'X' AND screen-group1 = 'P2'.
-        screen-active = '0'.
-        screen-input = '0'.
-        MODIFY SCREEN.
-      ENDIF.
+    IF rb_b0 EQ 'X' AND screen-group1 = 'P1'.
+      screen-active = '0'.
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+    IF rb_b0 EQ 'X' AND screen-group1 = 'P2'.
+      screen-active = '0'.
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+    IF rb_b0 EQ 'X' AND screen-group1 = 'P3'.
+      screen-active = '0'.
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+    IF rb_b1 EQ 'X' AND screen-group1 = 'P0'.
+      screen-active = '0'.
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+    IF rb_b1 EQ 'X' AND screen-group1 = 'P2'.
+      screen-active = '0'.
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+    IF rb_b1 EQ 'X' AND screen-group1 = 'P3'.
+      screen-active = '0'.
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+    IF rb_b2 EQ 'X' AND screen-group1 = 'P0'.
+      screen-active = '0'.
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+    IF rb_b2 EQ 'X' AND screen-group1 = 'P1'.
+      screen-active = '0'.
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+    IF rb_b2 EQ 'X' AND screen-group1 = 'P3'.
+      screen-active = '0'.
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+    IF rb_b3 EQ 'X' AND screen-group1 = 'P0'.
+      screen-active = '0'.
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+    IF rb_b3 EQ 'X' AND screen-group1 = 'P1'.
+      screen-active = '0'.
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+    IF rb_b3 EQ 'X' AND screen-group1 = 'P2'.
+      screen-active = '0'.
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
 
-      CLEAR: s_serv, p_alias, s_alias, p_treq1, c_chk, s_alias1, s_alias2, p_treq2, c_rep, c_srvlst.
+    CLEAR: s_serv, p_alias, s_alias, p_treq1, c_chk, s_alias1, s_alias2, p_treq2, c_rep, c_srvlst.
   ENDLOOP.
-start-of-selection.
+
+START-OF-SELECTION.
 
 *----------------------------------------------------------------------*
 *** MAIN PROGRAM
@@ -431,71 +434,105 @@ FORM download_list.
           is_active      TYPE /iwfnd/med_mdl_active_flag,
           system_alias   TYPE /iwfnd/defi_system_alias,
           value          TYPE /iwfnd/med_mdl_info_value,
+          activation     TYPE /iwfnd/med_mdl_info_value,
         END OF it_srvlst.
 
-  CLEAR it_srvlst.
-  it_srvlst-srv_identifier = '''ID'.
-  it_srvlst-is_active = 'S'.
-  it_srvlst-system_alias = 'ALIAS'.
-  it_srvlst-value = 'ACT_METHOD'.
-  APPEND it_srvlst.
-  CLEAR it_srvlst.
+  DATA: i_repid                        LIKE sy-repid,
+        lv_grid_title                  TYPE lvc_title,
+        lv_number_of_selected_services TYPE string,
+        ls_layout                      TYPE slis_layout_alv.
 
-  SELECT srv_identifier, is_active, value FROM /iwfnd/i_med_sin INTO CORRESPONDING FIELDS OF @it_srvlst WHERE name EQ 'BEP_SVC_GENERATOR'.
+  CLEAR it_srvlst.
+*  it_srvlst-srv_identifier = 'ID'.
+*  it_srvlst-is_active = 'S'.
+*  it_srvlst-system_alias = 'ALIAS'.
+*  it_srvlst-value = 'TECH_NAME'.
+*  it_srvlst-activation = 'ACT_METHOD'.
+*  APPEND it_srvlst.
+*  CLEAR it_srvlst.
+
+  SELECT srv_identifier, is_active, value FROM /iwfnd/i_med_sin INTO CORRESPONDING FIELDS OF @it_srvlst WHERE name EQ 'BEP_SVC_EXT_SERVICE_NAME' AND is_active EQ 'A'.
     SELECT system_alias FROM /iwfnd/c_mgdeam INTO @it_srvlst-system_alias WHERE service_id EQ @it_srvlst-srv_identifier.
     ENDSELECT.
     APPEND it_srvlst.
     CLEAR it_srvlst.
   ENDSELECT.
 
-* Display save dialog window
-  CALL METHOD cl_gui_frontend_services=>file_save_dialog
-    EXPORTING
-*     window_title      = ' '
-      default_extension = 'XLS'
-      default_file_name = 'ODATACLNT'
-      initial_directory = 'c:\temp\'
-    CHANGING
-      filename          = ld_filename
-      path              = ld_path
-      fullpath          = ld_fullpath
-      user_action       = ld_result.
+*Add Activation Method
+  LOOP AT it_srvlst.
+    SELECT value FROM /iwfnd/i_med_sin INTO @it_srvlst-activation WHERE name EQ 'BEP_SVC_GENERATOR' AND is_active = 'A' AND srv_identifier EQ @it_srvlst-srv_identifier.
+    ENDSELECT.
+    MODIFY it_srvlst.
+  ENDLOOP.
 
-  CONCATENATE ld_fullpath sy-mandt '_' sy-datum sy-uzeit '.xls' INTO p_dir.
+  i_repid = sy-repid.
 
-  CALL FUNCTION 'GUI_DOWNLOAD'
+  DESCRIBE TABLE it_srvlst LINES lv_number_of_selected_services.
+
+  lv_grid_title = lv_number_of_selected_services && 'Active Services'.
+
+  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
     EXPORTING
-      filename                = p_dir
-      filetype                = 'DAT'
-      write_field_separator   = 'X'
-* IMPORTING
-*     FILELENGTH              =
+      i_grid_title     = lv_grid_title               " Control title
+      i_structure_name = 'zfio_srv_name'
+      is_layout        = ls_layout               " List layout specifications
     TABLES
-      data_tab                = it_srvlst
-*     fieldnames              = t_head
+      t_outtab         = it_srvlst               " Table with data to be displayed
     EXCEPTIONS
-      file_write_error        = 1
-      no_batch                = 2
-      gui_refuse_filetransfer = 3
-      invalid_type            = 4
-      no_authority            = 5
-      unknown_error           = 6
-      header_not_allowed      = 7
-      separator_not_allowed   = 8
-      filesize_not_allowed    = 9
-      header_too_long         = 10
-      dp_error_create         = 11
-      dp_error_send           = 12
-      dp_error_write          = 13
-      unknown_dp_error        = 14
-      access_denied           = 15
-      dp_out_of_memory        = 16
-      disk_full               = 17
-      dp_timeout              = 18
-      file_not_found          = 19
-      dataprovider_exception  = 20
-      control_flush_error     = 21
-      OTHERS                  = 22.
+      program_error    = 1                " Program errors
+      OTHERS           = 2.
+
+
+** Display save dialog window
+*  CALL METHOD cl_gui_frontend_services=>file_save_dialog
+*    EXPORTING
+**     window_title      = ' '
+*      default_extension = 'XLS'
+*      default_file_name = 'ODATACLNT'
+*      initial_directory = 'c:\temp\'
+*    CHANGING
+*      filename          = ld_filename
+*      path              = ld_path
+*      fullpath          = ld_fullpath
+*      user_action       = ld_result.
+*
+*  CONCATENATE ld_fullpath sy-mandt '_' sy-datum sy-uzeit '.xls' INTO p_dir.
+
+*  CALL FUNCTION 'GUI_DOWNLOAD'
+*    EXPORTING
+*      filename                = p_dir
+*      filetype                = 'ASC'
+*      append                  = 'X'
+*      write_field_separator   = 'X'
+*      confirm_overwrite       = 'X'
+** IMPORTING
+**     FILELENGTH              =
+*    TABLES
+*      data_tab                = it_srvlst
+**     fieldnames              = t_head
+*    EXCEPTIONS
+*      file_write_error        = 1
+*      no_batch                = 2
+*      gui_refuse_filetransfer = 3
+*      invalid_type            = 4
+*      no_authority            = 5
+*      unknown_error           = 6
+*      header_not_allowed      = 7
+*      separator_not_allowed   = 8
+*      filesize_not_allowed    = 9
+*      header_too_long         = 10
+*      dp_error_create         = 11
+*      dp_error_send           = 12
+*      dp_error_write          = 13
+*      unknown_dp_error        = 14
+*      access_denied           = 15
+*      dp_out_of_memory        = 16
+*      disk_full               = 17
+*      dp_timeout              = 18
+*      file_not_found          = 19
+*      dataprovider_exception  = 20
+*      control_flush_error     = 21
+*      OTHERS                  = 22.
 
   IF sy-subrc <> 0.
     MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
