@@ -4,8 +4,6 @@
   <asx:values>
    <PROGDIR>
     <NAME>ZFIO_CLNTCPY_ODATA_UNASGN_NEW</NAME>
-    <STATE>A</STATE>
-    <VARCL>X</VARCL>
     <SUBC>1</SUBC>
     <RLOAD>E</RLOAD>
     <FIXPT>X</FIXPT>
@@ -44,8 +42,8 @@
     </item>
     <item>
      <ID>R</ID>
-     <ENTRY>zfio_clientcopy_odata_unassign_new</ENTRY>
-     <LENGTH>34</LENGTH>
+     <ENTRY>Fiori OData Unassign</ENTRY>
+     <LENGTH>20</LENGTH>
     </item>
     <item>
      <ID>S</ID>
@@ -62,7 +60,7 @@
     <item>
      <ID>S</ID>
      <KEY>C_SRVLST</KEY>
-     <ENTRY>Download List</ENTRY>
+     <ENTRY>Get List</ENTRY>
      <LENGTH>21</LENGTH>
     </item>
     <item>
