@@ -5,6 +5,8 @@
 *& I834429 - 11272017
 *& I834429 - 08272019
 *&  Removed download to excel and switched to ALV grid
+*& I834429 - 11122019
+*&  Added service version
 *&---------------------------------------------------------------------*
 REPORT zfio_clntcpy_odata_unasgn_new.
 
@@ -434,6 +436,7 @@ FORM download_list.
           is_active      TYPE /iwfnd/med_mdl_active_flag,
           system_alias   TYPE /iwfnd/defi_system_alias,
           value          TYPE /iwfnd/med_mdl_info_value,
+          version        TYPE /iwfnd/med_mdl_info_value,
           activation     TYPE /iwfnd/med_mdl_info_value,
         END OF it_srvlst.
 
@@ -451,12 +454,20 @@ FORM download_list.
 *  APPEND it_srvlst.
 *  CLEAR it_srvlst.
 
+*Select all active services
   SELECT srv_identifier, is_active, value FROM /iwfnd/i_med_sin INTO CORRESPONDING FIELDS OF @it_srvlst WHERE name EQ 'BEP_SVC_EXT_SERVICE_NAME' AND is_active EQ 'A'.
     SELECT system_alias FROM /iwfnd/c_mgdeam INTO @it_srvlst-system_alias WHERE service_id EQ @it_srvlst-srv_identifier.
     ENDSELECT.
     APPEND it_srvlst.
     CLEAR it_srvlst.
   ENDSELECT.
+
+*Add Service Version
+  LOOP AT it_srvlst.
+    SELECT value FROM /iwfnd/i_med_sin INTO @it_srvlst-version WHERE name EQ 'BEP_SVC_SERVICE_VERSION' AND is_active = 'A' AND srv_identifier EQ @it_srvlst-srv_identifier.
+    ENDSELECT.
+    MODIFY it_srvlst.
+  ENDLOOP.
 
 *Add Activation Method
   LOOP AT it_srvlst.
